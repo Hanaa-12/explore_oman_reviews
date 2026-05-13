@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, CardBody, Button, Spinner } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
-const API = "http://localhost:7500";
+const API = "https://explore-oman-reviews-ley9.onrender.com";
 
 const typeMap = {
     restaurants: "restaurants",
