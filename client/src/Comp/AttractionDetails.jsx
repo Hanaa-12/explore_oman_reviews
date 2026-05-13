@@ -16,11 +16,11 @@ export default function AttractionDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:7500/attractions/${id}`)
+    axios.get(`https://explore-oman-reviews-ley9.onrender.com/attractions/${id}`)
       .then(res => setAttraction(res.data))
       .catch(err => console.log(err));
 
-    axios.get(`http://localhost:7500/attraction-reviews/${id}`)
+    axios.get(`https://explore-oman-reviews-ley9.onrender.com/attraction-reviews/${id}`)
       .then(res => setReviews(res.data))
       .catch(err => console.log(err));
   }, [id]);
@@ -217,7 +217,7 @@ export default function AttractionDetails() {
     const newComment = prompt("Edit your comment:", review.comment);
     if (!newComment) return;
 
-    axios.put(`http://localhost:7500/attraction-reviews/${review._id}`, {
+    axios.put(`https://explore-oman-reviews-ley9.onrender.com/attraction-reviews/${review._id}`, {
       comment: newComment,
       rating: review.rating
     }).then(() => {
@@ -233,7 +233,7 @@ export default function AttractionDetails() {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
 
     try {
-      await axios.delete(`http://localhost:7500/attraction/${reviewId}`);
+      await axios.delete(`https://explore-oman-reviews-ley9.onrender.com/attraction/${reviewId}`);
       setReviews(prev => prev.filter(r => r._id !== reviewId));
     } catch (err) {
       console.log(err);
@@ -346,7 +346,7 @@ export default function AttractionDetails() {
                         {r.image && (
                           <div style={{ maxWidth: "320px" }}>
                             <img
-                              src={`http://localhost:7500${r.image}`}
+                              src={`https://explore-oman-reviews-ley9.onrender.com${r.image}`}
                               alt="Review"
                               style={styles.reviewImage}
                             />
