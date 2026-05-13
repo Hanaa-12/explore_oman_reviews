@@ -19,7 +19,7 @@ export default function Hotels() {
     };
 
     useEffect(() => {
-        axios.get("http://localhost:7500/hotels")
+        axios.get("https://explore-oman-reviews-ley9.onrender.com/hotels")
             .then(res => {
                 setHotels(res.data);
                 setSorted(res.data);
