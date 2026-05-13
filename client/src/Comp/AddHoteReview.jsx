@@ -35,7 +35,7 @@ export default function AddHotelReview() {
     }
 
     try {
-      await axios.post("http://localhost:7500/hotel-reviews", data);
+      await axios.post("https://explore-oman-reviews-ley9.onrender.com/hotel-reviews", data);
       navigate(`/hotels/${id}`);
     } catch (err) {
       console.log(err);
