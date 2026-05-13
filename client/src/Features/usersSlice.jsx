@@ -3,7 +3,7 @@ import axios from "axios";
 export const registerUser = createAsyncThunk(
   "users/register",
   async (data) => {
-    const res = await axios.post("http://localhost:7500/api/users/register", data);
+    const res = await axios.post("https://explore-oman-reviews-ley9.onrender.com/api/users/register", data);
     return res.data;
   }
 );
@@ -11,7 +11,7 @@ export const registerUser = createAsyncThunk(
 export const login = createAsyncThunk(
   "users/login",
   async (data) => {
-    const res = await axios.post("http://localhost:7500/login", data);
+    const res = await axios.post("https://explore-oman-reviews-ley9.onrender.com/login", data);
     return res.data;
   }
 );
