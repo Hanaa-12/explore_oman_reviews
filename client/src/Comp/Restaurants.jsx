@@ -11,7 +11,7 @@ export default function Restaurants() {
     const [sorted, setSorted] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:7500/restaurants")
+        axios.get("https://explore-oman-reviews-ley9.onrender.com/restaurants")
             .then(res => {
                 setRestaurants(res.data);
                 setSorted(res.data);
