@@ -351,7 +351,7 @@ export default function RestaurantDetails() {
                         {r.image && (
                           <div style={{ maxWidth: "320px" }}>
                             <img
-                              src={`http://localhost:7500${r.image}`}
+                              src={`https://explore-oman-reviews-ley9.onrender.com${r.image}`}
                               alt="Review"
                               style={styles.reviewImage}
                             />
