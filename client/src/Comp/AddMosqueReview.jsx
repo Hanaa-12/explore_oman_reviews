@@ -30,7 +30,7 @@ export default function AddMosqueReview() {
             data.append("image", form.image);
         }
 
-        axios.post("http://localhost:7500/mosque-reviews", data)
+        axios.post("https://explore-oman-reviews-ley9.onrender.com/mosque-reviews", data)
             .then(() => {
                 navigate(`/mosque/${id}`);
             })
