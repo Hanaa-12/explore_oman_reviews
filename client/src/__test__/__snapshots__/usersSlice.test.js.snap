@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`logout snapshot 1`] = `
+{
+  "isError": false,
+  "isSuccess": false,
+  "user": null,
+}
+`;
