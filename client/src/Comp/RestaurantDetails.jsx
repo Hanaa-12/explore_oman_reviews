@@ -17,12 +17,12 @@ export default function RestaurantDetails() {
 
   useEffect(() => {
     axios
-      .get(`https://explore-oman-reviews-1.onrender.com/restaurants/${id}`)
+      .get(`https://explore-oman-reviews-ley9.onrender.com/restaurants/${id}`)
       .then((res) => setRestaurant(res.data))
       .catch((err) => console.log(err));
 
     axios
-      .get(`https://explore-oman-reviews-1.onrender.com/reviews/${id}`)
+      .get(`https://explore-oman-reviews-ley9.onrender.com/reviews/${id}`)
       .then((res) => setReviews(res.data))
       .catch((err) => console.log(err));
   }, [id]);
@@ -221,7 +221,7 @@ export default function RestaurantDetails() {
     if (!newComment) return;
 
     axios
-      .put(`https://explore-oman-reviews-1.onrender.com/reviews/${review._id}`, {
+      .put(`https://explore-oman-reviews-ley9.onrender.com/reviews/${review._id}`, {
         comment: newComment,
         rating: review.rating
       })
@@ -238,7 +238,7 @@ export default function RestaurantDetails() {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
 
     try {
-      await axios.delete(`https://explore-oman-reviews-1.onrender.com/restaurant/${reviewId}`);
+      await axios.delete(`https://explore-oman-reviews-ley9.onrender.com/restaurant/${reviewId}`);
       setReviews((prev) => prev.filter((r) => r._id !== reviewId));
     } catch (err) {
       console.log(err);
