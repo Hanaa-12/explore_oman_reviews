@@ -35,7 +35,7 @@ export default function AddRestReview() {
     }
 
     try {
-      await axios.post("http://localhost:7500/reviews", data);
+      await axios.post("https://explore-oman-reviews-1.onrender.com/reviews", data);
       navigate(`/restaurant/${id}`);
     } catch (err) {
       console.log(err);
