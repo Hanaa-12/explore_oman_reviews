@@ -16,11 +16,11 @@ export default function MosqueDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:7500/mosques/${id}`)
+    axios.get(`https://explore-oman-reviews-ley9.onrender.com/mosques/${id}`)
       .then(res => setMosque(res.data))
       .catch(err => console.log(err));
 
-    axios.get(`http://localhost:7500/mosque-reviews/${id}`)
+    axios.get(`https://explore-oman-reviews-ley9.onrender.com/mosque-reviews/${id}`)
       .then(res => setReviews(res.data))
       .catch(err => console.log(err));
   }, [id]);
@@ -218,7 +218,7 @@ export default function MosqueDetails() {
 
     if (!newComment) return;
 
-    axios.put(`http://localhost:7500/mosque-reviews/${review._id}`, {
+    axios.put(`https://explore-oman-reviews-ley9.onrender.com/mosque-reviews/${review._id}`, {
       comment: newComment,
       rating: review.rating
     })
@@ -236,7 +236,7 @@ export default function MosqueDetails() {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
 
     try {
-      await axios.delete(`http://localhost:7500/mosque/${reviewId}`);
+      await axios.delete(`https://explore-oman-reviews-ley9.onrender.com/mosque/${reviewId}`);
       setReviews(prev => prev.filter(r => r._id !== reviewId));
     } catch (err) {
       console.log(err);
@@ -349,7 +349,7 @@ export default function MosqueDetails() {
                         {r.image && (
                           <div style={{ maxWidth: "320px" }}>
                             <img
-                              src={`http://localhost:7500${r.image}`}
+                              src={`https://explore-oman-reviews-ley9.onrender.com${r.image}`}
                               alt="Review"
                               style={styles.reviewImage}
                             />
