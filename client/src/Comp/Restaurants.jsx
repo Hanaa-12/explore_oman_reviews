@@ -3,9 +3,11 @@ import axios from "axios";
 import Header from "../Comp/Header";
 import Footer from "../Comp/Footer";
 import { Container, Row, Col, Card, CardBody, CardImg, Button } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function Restaurants() {
     const [search, setSearch] = useState("");
+    const navigate = useNavigate();
 
     const [restaurants, setRestaurants] = useState([]);
     const [sorted, setSorted] = useState([]);
@@ -270,7 +272,7 @@ export default function Restaurants() {
 
                                         <Button
                                             style={styles.detailsButton}
-                                            onClick={() => window.location.href = `/restaurant/${item._id}`}
+                                            onClick={() => navigate(`/restaurant/${item._id}`)}
                                         >
                                             View Details
                                         </Button>
