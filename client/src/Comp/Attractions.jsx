@@ -20,7 +20,7 @@ export default function Attractions() {
     };
 
     useEffect(() => {
-        axios.get("http://localhost:7500/attractions")
+        axios.get("https://explore-oman-reviews-ley9.onrender.com/attractions")
             .then(res => {
                 console.log("DATA:", res.data);
 
