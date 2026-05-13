@@ -238,7 +238,7 @@ export default function RestaurantDetails() {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
 
     try {
-      await axios.delete(`https://explore-oman-reviews-ley9.onrender.com/restaurant/${reviewId}`);
+      await axios.delete(`https://explore-oman-reviews-ley9.onrender.com/reviews/${reviewId}`);
       setReviews((prev) => prev.filter((r) => r._id !== reviewId));
     } catch (err) {
       console.log(err);
