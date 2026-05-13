@@ -30,7 +30,7 @@ export default function AddAttraReview() {
     if (form.image) data.append("image", form.image);
 
     try {
-      await axios.post("http://localhost:7500/attraction-reviews", data);
+      await axios.post("https://explore-oman-reviews-ley9.onrender.com/attraction-reviews", data);
       navigate(`/attractions/${id}`);
     } catch (err) {
       console.log(err);
