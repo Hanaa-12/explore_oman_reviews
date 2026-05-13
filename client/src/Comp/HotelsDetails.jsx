@@ -33,11 +33,11 @@ export default function HotelsDetails() {
   });
 
   useEffect(() => {
-    axios.get(`http://localhost:7500/hotels/${id}`)
+    axios.get(`https://explore-oman-reviews-ley9.onrender.com/hotels/${id}`)
       .then(res => setHotel(res.data))
       .catch(err => console.log(err));
 
-    axios.get(`http://localhost:7500/hotel-reviews/${id}`)
+    axios.get(`https://explore-oman-reviews-ley9.onrender.com/hotel-reviews/${id}`)
       .then(res => setReviews(res.data))
       .catch(err => console.log(err));
   }, [id]);
@@ -285,7 +285,7 @@ export default function HotelsDetails() {
       }
 
       await axios.put(
-        `http://localhost:7500/hotel-reviews/${editReview._id}`,
+        `https://explore-oman-reviews-ley9.onrender.com/hotel-reviews/${editReview._id}`,
         data,
         {
           headers: {
@@ -324,7 +324,7 @@ export default function HotelsDetails() {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:7500/hotel-reviews/${deleteId}`);
+      await axios.delete(`https://explore-oman-reviews-ley9.onrender.com/hotel-reviews/${deleteId}`);
 
       setReviews(prev => prev.filter(r => r._id !== deleteId));
 
