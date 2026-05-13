@@ -17,7 +17,7 @@ export default function Mosques() {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:7500/mosques")
+    axios.get("https://explore-oman-reviews-ley9.onrender.com/mosques")
       .then(res => {
         console.log("MOSQUES:", res.data);
         setMosques(res.data);
