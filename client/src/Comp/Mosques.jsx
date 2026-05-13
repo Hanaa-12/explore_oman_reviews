@@ -3,11 +3,13 @@ import axios from "axios";
 import Header from "../Comp/Header";
 import Footer from "../Comp/Footer";
 import { Container, Row, Col, Card, CardBody, CardImg, Button } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function Mosques() {
   const [search, setSearch] = useState("");
   const [mosques, setMosques] = useState([]);
   const [sorted, setSorted] = useState([]);
+  const navigate = useNavigate();
 
   const handleSearch = () => {
     const filtered = mosques.filter(r =>
@@ -265,7 +267,7 @@ export default function Mosques() {
 
                     <Button
                       style={styles.detailsButton}
-                      onClick={() => window.location.href = `/mosque/${item._id}`}
+                      onClick={() => navigate(`/mosque/${item._id}`)}
                     >
                       View Details
                     </Button>
