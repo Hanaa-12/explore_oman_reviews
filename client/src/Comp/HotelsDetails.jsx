@@ -346,7 +346,7 @@ export default function HotelsDetails() {
           <Col>
             <div style={styles.imageBox}>
               <img
-                src={`https://explore-oman-reviews-ley9.onrender.com${hotel.image}`}
+                src={`https://explore-oman-reviews-ley9.onrender.com/${hotel.image}`}
                 alt={hotel.name}
                 style={styles.image}
               />
