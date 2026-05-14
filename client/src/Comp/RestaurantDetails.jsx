@@ -178,21 +178,29 @@ export default function RestaurantDetails() {
   };
 
   const handleUpdate = async () => {
-    const data = new FormData();
-    data.append("comment", editForm.comment);
-    data.append("rating", Number(editForm.rating));
-    if (editForm.image) data.append("image", editForm.image);
+    // const data = new FormData();
+    // data.append("comment", editForm.comment);
+    // data.append("rating", Number(editForm.rating));
+    // if (editForm.image) data.append("image", editForm.image);
+
+    // await axios.put(
+    //   `https://explore-oman-reviews-ley9.onrender.com/reviews/${editReview._id}`,
+    //   data,
+    //   { headers: { "Content-Type": "multipart/form-data" } }
+    // );
 
     await axios.put(
-      `https://explore-oman-reviews-ley9.onrender.com/reviews/${editReview._id}`,
-      data,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
+  `https://explore-oman-reviews-ley9.onrender.com/reviews/${editReview._id}`,
+  {
+    comment: editForm.comment,
+    rating: Number(editForm.rating),
+  }
+);
 
     setReviews((prev) =>
       prev.map((r) =>
         r._id === editReview._id
-          ? { ...r, comment: editForm.comment, rating: editForm.rating }
+          ? { ...r, comment: editForm.comment, rating: Number(editForm.rating), }
           : r
       )
     );
