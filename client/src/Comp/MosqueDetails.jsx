@@ -430,62 +430,33 @@ export default function MosqueDetails() {
 
   
   const handleUpdate = async () => {
+  try {
+    await axios.put(
+      `https://explore-oman-reviews-ley9.onrender.com/mosque-reviews/${editReview._id}`,
+      {
+        comment: editForm.comment,
+        rating: Number(editForm.rating),
+      }
+    );
 
-    try {
+    setReviews((prev) =>
+      prev.map((r) =>
+        r._id === editReview._id
+          ? {
+              ...r,
+              comment: editForm.comment,
+              rating: Number(editForm.rating),
+            }
+          : r
+      )
+    );
 
-      const data = new FormData();
-
-      data.append("comment", editForm.comment);
-
-      data.append("rating", editForm.rating);
-
-      if (editForm.image) data.append("image", editForm.image);
-
- 
-
-      await axios.put(
-
-        `https://explore-oman-reviews-ley9.onrender.com/mosque-reviews/${editReview._id}`,
-
-        data,
-
-        { headers: { "Content-Type": "multipart/form-data" } }
-
-      );
-
- 
-
-      setReviews((prev) =>
-
-        prev.map((r) =>
-
-          r._id === editReview._id ? {
-
-            ...r,
-
-            comment: editForm.comment,
-
-            rating: editForm.rating,
-
-            image: editForm.image ? URL.createObjectURL(editForm.image) : r.image
-
-          } : r
-
-        )
-
-      );
-
-      setShowEdit(false);
-
-    } catch (err) {
-
-      console.log(err);
-
-      alert("Update failed");
-
-    }
-
-  };
+    setShowEdit(false);
+  } catch (err) {
+    console.log(err);
+    alert("Update failed");
+  }
+};
 
  
 
@@ -731,7 +702,9 @@ export default function MosqueDetails() {
 
               value={editForm.rating}
 
-              onChange={(e) => setEditForm({ ...editForm, rating: e.target.value })}
+              onChange={(e) =>
+  setEditForm({ ...editForm, rating: Number(e.target.value) })
+}
 
             >
 
