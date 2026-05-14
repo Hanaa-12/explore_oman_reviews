@@ -378,20 +378,29 @@ app.post("/mosque-reviews", upload.single("image"), async (req, res) => {
   }
 });
 
-app.put("/mosque-reviews/:id", async (req, res) => {
+app.put("/mosque-reviews/:id", upload.single("image"), async (req, res) => {
   try {
+
+    const updateData = {
+      comment: req.body.comment,
+      rating: Number(req.body.rating),
+    };
+
+    if (req.file) {
+      updateData.image = `/uploads/${req.file.filename}`;
+    }
+
     const updated = await ReviewMosque.findByIdAndUpdate(
       req.params.id,
-      {
-        comment: req.body.comment,
-        rating: Number(req.body.rating),
-      },
+      updateData,
       { new: true }
     );
 
     res.json(updated);
+
   } catch (err) {
-    res.status(500).json(err);
+    console.log(err);
+    res.status(500).json({ msg: err.message });
   }
 });
 
