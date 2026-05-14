@@ -384,12 +384,21 @@ app.put("/mosque-reviews/:id", async (req, res) => {
       req.params.id,
       {
         comment: req.body.comment,
-        rating: req.body.rating,
+        rating: Number(req.body.rating),
       },
       { new: true }
     );
 
     res.json(updated);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+app.delete("/mosque-reviews/:id", async (req, res) => {
+  try {
+    await ReviewMosque.findByIdAndDelete(req.params.id);
+    res.json({ msg: "Deleted successfully" });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -492,23 +501,23 @@ app.delete("/hotel-reviews/:id", async (req, res) => {
 });
 
 // DELETE COMMENT 
-app.delete("/:type/:id", async (req, res) => {
-  const { type, id } = req.params;
+// app.delete("/:type/:id", async (req, res) => {
+//   const { type, id } = req.params;
 
-  const models = {
-    restaurant: Review,
-    attraction: ReviewAttra,
-    mosque: ReviewMosque,
-    hotel: ReviewHotels,
-  };
+//   const models = {
+//     restaurant: Review,
+//     attraction: ReviewAttra,
+//     mosque: ReviewMosque,
+//     hotel: ReviewHotels,
+//   };
 
-  try {
-    await models[type].findByIdAndDelete(id);
-    res.json({ msg: "Deleted" });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+//   try {
+//     await models[type].findByIdAndDelete(id);
+//     res.json({ msg: "Deleted" });
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 app.put("/:type/:id", async (req, res) => {
   const { type, id } = req.params;
