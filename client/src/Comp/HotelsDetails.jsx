@@ -435,6 +435,14 @@ export default function HotelsDetails() {
                         <p style={styles.comment}>
                           {r.comment}
                         </p>
+                        {r.image && (
+                  <img
+                    src={`https://explore-oman-reviews-ley9.onrender.com${r.image}`}
+                    alt=""
+                    style={{ width: "200px", borderRadius: "12px" }}
+                  />
+                )}
+
 
                         {user && user.name === r.name && (
                           <div className="d-flex gap-2 justify-content-end">
