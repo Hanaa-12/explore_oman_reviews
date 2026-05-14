@@ -447,10 +447,12 @@ export default function RestaurantDetails() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
+      color: "#3b2a1d",
       fontSize: "22px",
       fontWeight: "700"
     },
     container: { paddingTop: "45px", paddingBottom: "60px" },
+
     heroImageBox: {
       width: "100%",
       height: "360px",
@@ -460,27 +462,43 @@ export default function RestaurantDetails() {
       border: "10px solid rgba(255,255,255,0.55)",
       marginBottom: "35px",
     },
-    heroImage: { width: "100%", height: "100%", objectFit: "cover" },
+    heroImage: {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover"
+    },
+
     mainCard: {
-      border: "1px solid rgba(150,110,65,0.16)",
+      border: "1px solid rgba(150, 110, 65, 0.16)",
       borderRadius: "28px",
       backgroundColor: "#fff8ef",
-      boxShadow: "0 14px 35px rgba(70,45,20,0.10)"
+      boxShadow: "0 14px 35px rgba(70, 45, 20, 0.10)"
     },
+
     mapCard: {
-      border: "1px solid rgba(150,110,65,0.16)",
+      border: "1px solid rgba(150, 110, 65, 0.16)",
       borderRadius: "28px",
       backgroundColor: "#fff8ef",
-      boxShadow: "0 14px 35px rgba(70,45,20,0.10)"
+      boxShadow: "0 14px 35px rgba(70, 45, 20, 0.10)"
     },
+
     cardBody: { padding: "30px" },
-    title: { fontWeight: "800", fontSize: "34px" },
+
+    title: {
+      color: "#2b2118",
+      fontWeight: "800",
+      fontSize: "34px",
+      marginBottom: "15px"
+    },
+
     pill: {
       backgroundColor: "#f3e4d0",
+      color: "#3b2a1d",
       padding: "8px 14px",
       borderRadius: "20px",
       fontWeight: "700"
     },
+
     button: {
       backgroundColor: "#8b5520",
       border: "none",
@@ -488,51 +506,69 @@ export default function RestaurantDetails() {
       padding: "10px 22px",
       color: "#fff"
     },
+
     reviewItem: {
+      border: "1px solid rgba(150, 110, 65, 0.12)",
       borderRadius: "22px",
       backgroundColor: "#fff",
       padding: "15px",
       marginBottom: "15px"
     },
+
     smallButton: {
       backgroundColor: "#8b5520",
       border: "none",
       color: "#fff",
       borderRadius: "14px",
-      padding: "6px 14px"
+      padding: "6px 14px",
+      fontWeight: "700"
     },
+
     deleteButton: {
       backgroundColor: "#f3e4d0",
       border: "none",
+      color: "#3b2a1d",
       borderRadius: "14px",
-      padding: "6px 14px"
+      padding: "6px 14px",
+      fontWeight: "700"
     },
 
-    /* مودال */
     overlay: {
       position: "fixed",
       top: 0,
       left: 0,
       width: "100%",
       height: "100%",
-      background: "rgba(0,0,0,0.5)",
+      background: "rgba(43, 33, 24, 0.55)",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      zIndex: 9999
+      zIndex: "9999",
     },
+
     modal: {
       background: "#fff8ef",
-      padding: "25px",
-      borderRadius: "20px",
-      width: "350px"
+      padding: "26px",
+      borderRadius: "24px",
+      width: "360px",
+      boxShadow: "0 25px 60px rgba(0,0,0,0.25)",
     },
+
     modalInput: {
-      width: "100%",
-      marginBottom: "10px",
+      borderRadius: "16px",
+      border: "1px solid #d5b98e",
       padding: "10px",
-      borderRadius: "10px",
-      border: "1px solid #ccc"
+      width: "100%",
+      marginBottom: "10px"
+    },
+
+    cancelButton: {
+      backgroundColor: "#f3e4d0",
+      border: "none",
+      color: "#3b2a1d",
+      borderRadius: "18px",
+      padding: "9px 18px",
+      fontWeight: "700"
     }
   };
 
@@ -548,11 +584,16 @@ export default function RestaurantDetails() {
     data.append("rating", editForm.rating);
     if (editForm.image) data.append("image", editForm.image);
 
-    await axios.put(`https://explore-oman-reviews-ley9.onrender.com/reviews/${editReview._id}`, data);
+    await axios.put(
+      `https://explore-oman-reviews-ley9.onrender.com/reviews/${editReview._id}`,
+      data
+    );
 
     setReviews(prev =>
       prev.map(r =>
-        r._id === editReview._id ? { ...r, comment: editForm.comment, rating: editForm.rating } : r
+        r._id === editReview._id
+          ? { ...r, comment: editForm.comment, rating: editForm.rating }
+          : r
       )
     );
 
@@ -565,7 +606,10 @@ export default function RestaurantDetails() {
   };
 
   const confirmDelete = async () => {
-    await axios.delete(`https://explore-oman-reviews-ley9.onrender.com/reviews/${deleteId}`);
+    await axios.delete(
+      `https://explore-oman-reviews-ley9.onrender.com/reviews/${deleteId}`
+    );
+
     setReviews(prev => prev.filter(r => r._id !== deleteId));
     setShowDelete(false);
   };
@@ -577,48 +621,88 @@ export default function RestaurantDetails() {
       <Header />
 
       <Container style={styles.container}>
+
+        {/* الصورة */}
         <div style={styles.heroImageBox}>
-          <img src={restaurant.image} style={styles.heroImage} />
+          <img src={restaurant.image} alt="" style={styles.heroImage} />
         </div>
 
-        <Row>
+        {/* المعلومات + الماب */}
+        <Row className="g-4">
           <Col md="8">
             <Card style={styles.mainCard}>
               <CardBody style={styles.cardBody}>
-                <h2 style={styles.title}>{restaurant.name}</h2>
+                <CardTitle style={styles.title}>{restaurant.name}</CardTitle>
 
                 <div className="d-flex gap-2 mb-3">
-                  <span style={styles.pill}>⭐ {restaurant.averageRating}</span>
+                  <span style={styles.pill}>⭐ {restaurant.averageRating || 0}</span>
                   <span style={styles.pill}>👥 {reviews.length}</span>
+                  <span style={styles.pill}>📍 {restaurant.location?.name}</span>
                 </div>
 
-                <p>{restaurant.description}</p>
+                <CardText>{restaurant.description}</CardText>
 
-                <Button style={styles.button} onClick={() => navigate(`/restaurant/${id}/review`)}>
+                <Button
+                  style={styles.button}
+                  onClick={() => navigate(`/restaurant/${id}/review`)}
+                >
                   Write Review
                 </Button>
               </CardBody>
             </Card>
           </Col>
+
+          {/* الماب */}
+          <Col md="4">
+            <Card style={styles.mapCard}>
+              <CardBody className="p-3">
+                <iframe
+                  title="map"
+                  src={`https://www.google.com/maps?q=${restaurant.location?.lat},${restaurant.location?.lng}&z=16&output=embed`}
+                  style={{
+                    border: "0",
+                    borderRadius: "22px",
+                    width: "100%",
+                    height: "300px"
+                  }}
+                />
+              </CardBody>
+            </Card>
+          </Col>
         </Row>
 
-        <Row className="mt-4">
+        {/* الريفيوز */}
+        <Row className="mt-5">
           <Col>
             {reviews.map(r => (
-              <div key={r._id} style={styles.reviewItem}>
-                <strong>{r.name}</strong> ⭐ {r.rating}
-                <p>{r.comment}</p>
+              <Card key={r._id} style={styles.reviewItem}>
+                <CardBody>
 
-                {user && user.name === r.name && (
-                  <div className="d-flex gap-2">
-                    <Button style={styles.smallButton} onClick={() => openEdit(r)}>Edit</Button>
-                    <Button style={styles.deleteButton} onClick={() => openDelete(r._id)}>Delete</Button>
+                  <div className="d-flex justify-content-between mb-2">
+                    <strong>{r.name}</strong>
+                    <span>⭐ {r.rating}</span>
                   </div>
-                )}
-              </div>
+
+                  <p>{r.comment}</p>
+
+                  {user && user.name === r.name && (
+                    <div className="d-flex justify-content-end gap-2 mt-2">
+                      <Button style={styles.smallButton} onClick={() => openEdit(r)}>
+                        Edit
+                      </Button>
+
+                      <Button style={styles.deleteButton} onClick={() => openDelete(r._id)}>
+                        Delete
+                      </Button>
+                    </div>
+                  )}
+
+                </CardBody>
+              </Card>
             ))}
           </Col>
         </Row>
+
       </Container>
 
       <Footer />
@@ -640,7 +724,9 @@ export default function RestaurantDetails() {
               value={editForm.rating}
               onChange={(e) => setEditForm({ ...editForm, rating: e.target.value })}
             >
-              {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
+              {[1,2,3,4,5].map(n => (
+                <option key={n} value={n}>{n} Stars</option>
+              ))}
             </select>
 
             <input
@@ -649,8 +735,15 @@ export default function RestaurantDetails() {
               onChange={(e) => setEditForm({ ...editForm, image: e.target.files[0] })}
             />
 
-            <Button onClick={handleUpdate}>Save</Button>
-            <Button onClick={() => setShowEdit(false)}>Cancel</Button>
+            <div className="d-flex justify-content-between">
+              <Button style={styles.button} onClick={handleUpdate}>
+                Save
+              </Button>
+
+              <Button style={styles.cancelButton} onClick={() => setShowEdit(false)}>
+                Cancel
+              </Button>
+            </div>
           </div>
         </div>
       )}
@@ -659,15 +752,24 @@ export default function RestaurantDetails() {
       {showDelete && (
         <div style={styles.overlay}>
           <div style={styles.modal}>
-            <h5>Delete Review?</h5>
+            <h5>Delete Review</h5>
 
-            <Button onClick={confirmDelete}>Delete</Button>
-            <Button onClick={() => setShowDelete(false)}>Cancel</Button>
+            <p>Are you sure you want to delete?</p>
+
+            <div className="d-flex justify-content-between">
+              <Button style={styles.smallButton} onClick={confirmDelete}>
+                Delete
+              </Button>
+
+              <Button style={styles.cancelButton} onClick={() => setShowDelete(false)}>
+                Cancel
+              </Button>
+            </div>
           </div>
         </div>
       )}
+
     </div>
   );
 }
-
 
