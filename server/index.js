@@ -559,8 +559,9 @@ app.delete("/hotel-reviews/:id", async (req, res) => {
     await ReviewHotels.findByIdAndDelete(req.params.id);
     res.json({ msg: "Deleted successfully" });
   } catch (err) {
-    res.status(500).json({ msg: err.message });
-  }
+  console.log("DELETE ERROR:", err.response?.data || err.message);
+  alert(err.response?.data?.msg || "Delete failed");
+}
 });
 
 app.post("/:type", async (req, res) => {
