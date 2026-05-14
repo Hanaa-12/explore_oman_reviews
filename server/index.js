@@ -6,7 +6,7 @@ import dns from "dns";
 import dotenv from "dotenv";
 import multer from "multer";
 import path from "path";
-
+import { fileURLToPath } from "url";
 import Restaurant from "./model/Restaurant.js";
 import Review from "./model/ReviewRest.js";
 import Attraction from "./model/Attraction.js";
@@ -23,6 +23,8 @@ const models = {
   attractions: Attraction,
 };
 dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
@@ -30,9 +32,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/dist/index.html"));
-});
 
 app.use("/uploads", express.static("uploads"));
 
@@ -580,3 +579,8 @@ app.post("/:type", async (req, res) => {
     });
   }
 });
+
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "client/dist/index.html"));
+// });
