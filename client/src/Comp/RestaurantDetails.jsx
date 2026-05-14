@@ -154,6 +154,13 @@ export default function RestaurantDetails() {
       borderRadius: "15px",
       width: "400px",
     },
+    map: {
+      border: "0",
+      borderRadius: "20px",
+      width: "100%",
+      height: "100%",
+      minHeight: "300px",
+    },
   };
 
   if (!restaurant) {
@@ -185,11 +192,7 @@ export default function RestaurantDetails() {
     setReviews((prev) =>
       prev.map((r) =>
         r._id === editReview._id
-          ? {
-              ...r,
-              comment: editForm.comment,
-              rating: editForm.rating,
-            }
+          ? { ...r, comment: editForm.comment, rating: editForm.rating }
           : r
       )
     );
@@ -216,6 +219,7 @@ export default function RestaurantDetails() {
       <Header />
 
       <Container style={styles.container}>
+
         {/* HERO */}
         <div style={styles.heroImageBox}>
           <img
@@ -225,31 +229,55 @@ export default function RestaurantDetails() {
           />
         </div>
 
-        {/* INFO */}
-        <Card style={styles.card}>
-          <CardBody>
-            <CardTitle style={styles.title}>{restaurant.name}</CardTitle>
+        {/* INFO + MAP (مثل التصميم القديم) */}
+        <Row className="g-4">
 
-            <div className="d-flex gap-2 my-3">
-              <span style={styles.pill}>
-                ⭐ {restaurant.averageRating || 0}/5
-              </span>
-              <span style={styles.pill}>👥 {reviews.length} reviews</span>
-              <span style={styles.pill}>
-                📍 {restaurant.location?.name}
-              </span>
-            </div>
+          <Col md="8">
+            <Card style={styles.card}>
+              <CardBody>
+                <CardTitle style={styles.title}>
+                  {restaurant.name}
+                </CardTitle>
 
-            <CardText>{restaurant.description}</CardText>
+                <div className="d-flex gap-2 my-3">
+                  <span style={styles.pill}>
+                    ⭐ {restaurant.averageRating || 0}/5
+                  </span>
+                  <span style={styles.pill}>
+                    👥 {reviews.length} reviews
+                  </span>
+                  <span style={styles.pill}>
+                    📍 {restaurant.location?.name}
+                  </span>
+                </div>
 
-            <Button
-              style={styles.button}
-              onClick={() => navigate(`/restaurant/${id}/review`)}
-            >
-              Write Review
-            </Button>
-          </CardBody>
-        </Card>
+                <CardText>{restaurant.description}</CardText>
+
+                <Button
+                  style={styles.button}
+                  onClick={() => navigate(`/restaurant/${id}/review`)}
+                >
+                  Write Review
+                </Button>
+              </CardBody>
+            </Card>
+          </Col>
+
+          {/* MAP رجعناه هنا */}
+          <Col md="4">
+            <Card style={styles.card}>
+              <CardBody className="p-3">
+                <iframe
+                  title="map"
+                  src={`https://www.google.com/maps?q=${restaurant.location?.lat},${restaurant.location?.lng}&z=16&output=embed`}
+                  style={styles.map}
+                  loading="lazy"
+                />
+              </CardBody>
+            </Card>
+          </Col>
+
+        </Row>
 
         {/* REVIEWS */}
         <h3 className="mt-4">Reviews</h3>
@@ -303,14 +331,6 @@ export default function RestaurantDetails() {
           ))
         )}
 
-        <div className="text-center mt-4">
-          <Button
-            style={styles.backButton}
-            onClick={() => navigate("/restaurants")}
-          >
-            Back
-          </Button>
-        </div>
       </Container>
 
       {/* EDIT MODAL */}
@@ -335,9 +355,7 @@ export default function RestaurantDetails() {
               }
             >
               {[1, 2, 3, 4, 5].map((n) => (
-                <option key={n} value={n}>
-                  {n}
-                </option>
+                <option key={n} value={n}>{n}</option>
               ))}
             </select>
 
