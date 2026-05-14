@@ -208,13 +208,13 @@ export default function RestaurantDetails() {
  const confirmDelete = async () => {
   try {
     await axios.delete(
-      `https://explore-oman-reviews-ley9.onrender.com/reviews/restaurant/${deleteId}`
+      `https://explore-oman-reviews-ley9.onrender.com/reviews/${deleteId}`
     );
 
     setReviews((prev) => prev.filter((r) => r._id !== deleteId));
     setShowDelete(false);
   } catch (err) {
-    console.log(err);
+    console.log("Delete error:", err);
   }
 };
   return (
