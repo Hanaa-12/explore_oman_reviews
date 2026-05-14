@@ -204,7 +204,23 @@ export default function RestaurantDetails() {
       borderRadius: "22px",
       padding: "10px 22px",
       fontWeight: "700",
-    }
+    },button: {
+  backgroundColor: "#8b5520",
+  border: "none",
+  borderRadius: "22px",
+  padding: "10px 22px",
+  fontWeight: "700",
+  boxShadow: "0 8px 20px rgba(139, 85, 32, 0.22)",
+},
+
+editButton: {
+  backgroundColor: "#8b5520",
+  border: "none",
+  color: "#fff",
+  borderRadius: "14px",
+  padding: "6px 14px",
+  fontWeight: "700",
+}
   };
 
   if (!restaurant) {
@@ -361,20 +377,20 @@ export default function RestaurantDetails() {
                         {user && user.name === r.name && (
                           <div className="d-flex justify-content-end gap-2">
                             <Button
-                              size="sm"
-                              style={styles.smallButton}
-                              onClick={() => handleEdit(r)}
-                            >
-                              Edit
-                            </Button>
+  size="sm"
+  style={styles.editButton}
+  onClick={() => handleEdit(r)}
+>
+  Edit
+</Button>
 
-                            <Button
-                              size="sm"
-                              style={styles.deleteButton}
-                              onClick={() => deleteReview(r._id)}
-                            >
-                              Delete
-                            </Button>
+<Button
+  size="sm"
+  style={styles.deleteButton}
+  onClick={() => deleteReview(r._id)}
+>
+  Delete
+</Button>
                           </div>
                         )}
                       </CardBody>
