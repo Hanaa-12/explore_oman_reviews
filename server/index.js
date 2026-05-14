@@ -481,6 +481,16 @@ app.put("/hotel-reviews/:id", upload.single("image"), async (req, res) => {
   }
 });
 
+app.delete("/hotel-reviews/:id", async (req, res) => {
+  try {
+    await ReviewHotels.findByIdAndDelete(req.params.id);
+    res.json({ msg: "Deleted successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: err.message });
+  }
+});
+
 // DELETE COMMENT 
 app.delete("/:type/:id", async (req, res) => {
   const { type, id } = req.params;
@@ -554,15 +564,7 @@ app.put("/:type/:id", async (req, res) => {
 //   }
 // });
 
-app.delete("/hotel-reviews/:id", async (req, res) => {
-  try {
-    await ReviewHotels.findByIdAndDelete(req.params.id);
-    res.json({ msg: "Deleted successfully" });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ msg: err.message });
-  }
-});
+
 
 app.post("/:type", async (req, res) => {
   try {
