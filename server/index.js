@@ -529,25 +529,34 @@ app.put("/:type/:id", async (req, res) => {
   }
 });
 
-app.delete("/:type/:id", async (req, res) => {
-  const { type, id } = req.params;
+// app.delete("/:type/:id", async (req, res) => {
+//   const { type, id } = req.params;
 
-  const models = {
-    restaurants: Restaurant,
-    mosques: Mosque,
-    hotels: Hotels,
-    attractions: Attraction,
-  };
+//   const models = {
+//     restaurants: Restaurant,
+//     mosques: Mosque,
+//     hotels: Hotels,
+//     attractions: Attraction,
+//   };
 
+//   try {
+//     const model = models[type];
+
+//     if (!model) {
+//       return res.status(400).json({ msg: "Invalid type" });
+//     }
+
+//     await model.findByIdAndDelete(id);
+
+//     res.json({ msg: "Deleted successfully" });
+//   } catch (err) {
+//     res.status(500).json({ msg: err.message });
+//   }
+// });
+
+app.delete("/hotel-reviews/:id", async (req, res) => {
   try {
-    const model = models[type];
-
-    if (!model) {
-      return res.status(400).json({ msg: "Invalid type" });
-    }
-
-    await model.findByIdAndDelete(id);
-
+    await ReviewHotels.findByIdAndDelete(req.params.id);
     res.json({ msg: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ msg: err.message });
