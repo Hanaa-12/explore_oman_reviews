@@ -429,35 +429,36 @@ export default function MosqueDetails() {
  
 
   
-  const handleUpdate = async () => {
+ const handleUpdate = async () => {
   try {
-    await axios.put(
+
+    const formData = new FormData();
+
+    formData.append("comment", editForm.comment);
+    formData.append("rating", editForm.rating);
+
+    if (editForm.image) {
+      formData.append("image", editForm.image);
+    }
+
+    const res = await axios.put(
       `https://explore-oman-reviews-ley9.onrender.com/mosque-reviews/${editReview._id}`,
-      {
-        comment: editForm.comment,
-        rating: Number(editForm.rating),
-      }
+      formData
     );
 
     setReviews((prev) =>
       prev.map((r) =>
-        r._id === editReview._id
-          ? {
-              ...r,
-              comment: editForm.comment,
-              rating: Number(editForm.rating),
-            }
-          : r
+        r._id === editReview._id ? res.data : r
       )
     );
 
     setShowEdit(false);
+
   } catch (err) {
     console.log(err);
     alert("Update failed");
   }
 };
-
  
 
   
