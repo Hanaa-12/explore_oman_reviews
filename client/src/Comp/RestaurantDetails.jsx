@@ -335,6 +335,11 @@ export default function RestaurantDetails() {
             </Card>
           ))
         )}
+        <div className="text-center mt-4">
+
+                  <Button style={styles.backButton} onClick={() => navigate("/mosques")}>← Back to Mosques</Button>
+
+                </div>
         
 
       </Container>
