@@ -238,7 +238,7 @@ export default function AttractionDetails() {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
 
     try {
-      await axios.delete(`https://explore-oman-reviews-ley9.onrender.com/attraction/${reviewId}`);
+      await axios.delete(`https://explore-oman-reviews-ley9.onrender.com/attraction-reviews/${reviewId}`);
       setReviews(prev => prev.filter(r => r._id !== reviewId));
     } catch (err) {
       console.log(err);
@@ -360,7 +360,7 @@ export default function AttractionDetails() {
 
                         {user && user.name === r.name && (
                           <div className="d-flex justify-content-end gap-2">
-                            <div className="d-flex justify-content-end gap-2">
+                            
   <Button
     size="sm"
     style={styles.editButton}
