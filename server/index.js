@@ -86,7 +86,7 @@ async function createAdmin() {
 
 createAdmin();
 
-app.post("/api/users/login", async (req, res) => {
+app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
