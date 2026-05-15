@@ -376,7 +376,7 @@ export default function AttractionDetails() {
   >
      Delete
   </Button>
-</div>
+
                           </div>
                         )}
                       </CardBody>
