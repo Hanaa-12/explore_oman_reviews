@@ -258,26 +258,26 @@ const [editForm, setEditForm] = useState({
       formData.append("image", editForm.image);
     }
 
-    await axios.put(
+    const res = await axios.put(
       `https://explore-oman-reviews-ley9.onrender.com/attraction-reviews/${editReview._id}`,
       formData
     );
 
+    // 🔥 تحديث من السيرفر
     setReviews(prev =>
-  prev.map(r =>
-    r._id === editReview._id
-      ? { 
-          ...r, 
-          comment: editForm.comment, 
-          rating: editForm.rating,
-          image: editForm.image ? URL.createObjectURL(editForm.image) : r.image
-        }
-      : r
-  )
-);
+      prev.map(r =>
+        r._id === editReview._id ? res.data : r
+      )
+    );
 
     setShowEdit(false);
     setEditReview(null);
+
+    setEditForm({
+      comment: "",
+      rating: 5,
+      image: null
+    });
 
   } catch (err) {
     console.log(err);
@@ -392,7 +392,7 @@ const [editForm, setEditForm] = useState({
                         {r.image && (
                           <div style={{ maxWidth: "320px" }}>
                             <img
-                              src={`https://explore-oman-reviews-ley9.onrender.com${r.image}`}
+                             src={`https://explore-oman-reviews-ley9.onrender.com${r.image}`}
                               alt="Review"
                               style={styles.reviewImage}
                             />
