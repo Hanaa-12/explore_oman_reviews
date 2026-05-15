@@ -108,13 +108,19 @@ export default function AdminDashboard() {
 
   
     const confirmDelete = async () => {
-        await fetch(`${API}/${typeMap[type]}/${deleteId}`, {
-            method: "DELETE"
-        });
+    const res = await fetch(`${API}/${typeMap[type]}/${deleteId}`, {
+        method: "DELETE"
+    });
 
+    const result = await res.json();
+
+    if (res.ok) {
         setShowDelete(false);
         fetchData(type);
-    };
+    } else {
+        alert(result.msg || "Delete failed");
+    }
+};
 
     
     const styles = {
