@@ -14,6 +14,14 @@ export default function AttractionDetails() {
   const [reviews, setReviews] = useState([]);
 
   const navigate = useNavigate();
+  const [showEdit, setShowEdit] = useState(false);
+const [editReview, setEditReview] = useState(null);
+  const [loadingUpdate, setLoadingUpdate] = useState(false);
+const [editForm, setEditForm] = useState({
+  comment: "",
+  rating: 5,
+  image: null
+});
 
   useEffect(() => {
     axios.get(`https://explore-oman-reviews-ley9.onrender.com/attractions/${id}`)
@@ -218,21 +226,15 @@ export default function AttractionDetails() {
     );
   }
 
-  const handleEdit = (review) => {
-    const newComment = prompt("Edit your comment:", review.comment);
-    if (!newComment) return;
-
-    axios.put(`https://explore-oman-reviews-ley9.onrender.com/attraction-reviews/${review._id}`, {
-      comment: newComment,
-      rating: review.rating
-    }).then(() => {
-      setReviews(prev =>
-        prev.map(r =>
-          r._id === review._id ? { ...r, comment: newComment } : r
-        )
-      );
-    });
-  };
+ const handleEdit = (review) => {
+  setEditReview(review);
+  setEditForm({
+    comment: review.comment,
+    rating: review.rating,
+    image: null
+  });
+  setShowEdit(true);
+};
 
   const deleteReview = async (reviewId) => {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
@@ -244,6 +246,45 @@ export default function AttractionDetails() {
       console.log(err);
     }
   };
+  const handleUpdate = async () => {
+  try {
+    setLoadingUpdate(true);
+
+    const formData = new FormData();
+    formData.append("comment", editForm.comment);
+    formData.append("rating", editForm.rating);
+
+    if (editForm.image) {
+      formData.append("image", editForm.image);
+    }
+
+    await axios.put(
+      `https://explore-oman-reviews-ley9.onrender.com/attraction-reviews/${editReview._id}`,
+      formData
+    );
+
+    setReviews(prev =>
+  prev.map(r =>
+    r._id === editReview._id
+      ? { 
+          ...r, 
+          comment: editForm.comment, 
+          rating: editForm.rating,
+          image: editForm.image ? URL.createObjectURL(editForm.image) : r.image
+        }
+      : r
+  )
+);
+
+    setShowEdit(false);
+    setEditReview(null);
+
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setLoadingUpdate(false);
+  }
+};
 
   return (
     <div style={styles.page}>
@@ -397,6 +438,82 @@ export default function AttractionDetails() {
           </Col>
         </Row>
       </Container>
+      {showEdit && (
+  <div style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.4)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 999
+  }}>
+    <div style={{
+      background: "#fff8ef",
+      padding: "25px",
+      borderRadius: "20px",
+      width: "350px",
+      boxShadow: "0 10px 30px rgba(0,0,0,0.2)"
+    }}>
+      <h5 style={{ marginBottom: "15px" }}>Edit Review</h5>
+
+      <input
+        type="text"
+        value={editForm.comment}
+        onChange={(e) =>
+          setEditForm({ ...editForm, comment: e.target.value })
+        }
+        placeholder="Comment"
+        style={{ width: "100%", marginBottom: "10px", padding: "8px" }}
+      />
+
+      <input
+  type="number"
+  value={editForm.rating}
+  min="1"
+  max="5"
+  onChange={(e) => {
+    const value = Number(e.target.value);
+    if (value >= 1 && value <= 5) {
+      setEditForm({ ...editForm, rating: value });
+    }
+  }}
+  style={{ width: "100%", marginBottom: "10px", padding: "8px" }}
+/>
+
+      <input
+        type="file"
+        onChange={(e) =>
+          setEditForm({ ...editForm, image: e.target.files[0] })
+        }
+        style={{ marginBottom: "15px" }}
+      />
+
+      <div className="d-flex justify-content-end gap-2">
+        <Button
+  style={styles.deleteButton}
+  onClick={() => {
+  setShowEdit(false);
+  setEditReview(null);
+}}
+>
+  Cancel
+</Button>
+
+        <Button
+  style={styles.editButton}
+  onClick={handleUpdate}
+  disabled={loadingUpdate}
+>
+  {loadingUpdate ? "Saving..." : "Save"}
+</Button>
+      </div>
+    </div>
+  </div>
+)}
 
       <Footer />
     </div>
