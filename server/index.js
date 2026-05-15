@@ -517,24 +517,7 @@ app.delete("/hotel-reviews/:id", async (req, res) => {
   }
 });
 
-// DELETE COMMENT 
-// app.delete("/:type/:id", async (req, res) => {
-//   const { type, id } = req.params;
 
-//   const models = {
-//     restaurant: Review,
-//     attraction: ReviewAttra,
-//     mosque: ReviewMosque,
-//     hotel: ReviewHotels,
-//   };
-
-//   try {
-//     await models[type].findByIdAndDelete(id);
-//     res.json({ msg: "Deleted" });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
 
 app.put("/:type/:id", async (req, res) => {
   const { type, id } = req.params;
@@ -628,6 +611,48 @@ app.post("/:type", async (req, res) => {
   }
 });
 
+// DELETE COMMENT 
+// app.delete("/:type/:id", async (req, res) => {
+//   const { type, id } = req.params;
+
+//   const models = {
+//     restaurant: Review,
+//     attraction: ReviewAttra,
+//     mosque: ReviewMosque,
+//     hotel: ReviewHotels,
+//   };
+
+//   try {
+//     await models[type].findByIdAndDelete(id);
+//     res.json({ msg: "Deleted" });
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+app.delete("/:type/:id", async (req, res) => {
+  const { type, id } = req.params;
+
+  const models = {
+    restaurants: Restaurant,
+    mosques: Mosque,
+    hotels: Hotels,
+    attractions: Attraction,
+  };
+
+  try {
+    const model = models[type];
+
+    if (!model) {
+      return res.status(400).json({ msg: "Invalid type" });
+    }
+
+    await model.findByIdAndDelete(id);
+
+    res.json({ msg: "Deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ msg: err.message });
+  }
+});
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "client/dist/index.html"));
