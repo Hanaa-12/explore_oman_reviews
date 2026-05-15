@@ -301,23 +301,31 @@ app.post("/attraction-reviews", upload.single("image"), async (req, res) => {
   }
 });
 
-app.put("/attraction-reviews/:id", async (req, res) => {
+app.put("/attraction-reviews/:id", upload.single("image"), async (req, res) => {
   try {
+    const updateData = {
+      comment: req.body.comment,
+      rating: Number(req.body.rating),
+    };
+
+    // إذا فيه صورة جديدة
+    if (req.file) {
+      updateData.image = `/uploads/${req.file.filename}`;
+    }
+
     const updated = await ReviewAttra.findByIdAndUpdate(
       req.params.id,
-      {
-        comment: req.body.comment,
-        rating: req.body.rating,
-      },
+      updateData,
       { new: true }
     );
 
     res.json(updated);
+
   } catch (err) {
-    res.status(500).json(err);
+    console.log(err);
+    res.status(500).json({ msg: err.message });
   }
 });
-
 // MOSQUES 
 app.get("/mosques", async (req, res) => {
   const data = await Mosque.find();
@@ -581,6 +589,16 @@ app.put("/:type/:id", async (req, res) => {
 //     res.status(500).json({ msg: err.message });
 //   }
 // });
+
+app.delete("/attraction-reviews/:id", async (req, res) => {
+  try {
+    await ReviewAttra.findByIdAndDelete(req.params.id);
+    res.json({ msg: "Deleted successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: err.message });
+  }
+});
 
 
 
