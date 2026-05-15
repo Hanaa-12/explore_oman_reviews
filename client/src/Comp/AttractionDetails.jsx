@@ -175,22 +175,27 @@ export default function AttractionDetails() {
       marginTop: "10px",
       marginBottom: "15px",
     },
-    editButton: {
-      backgroundColor: "#8b5520",
-      border: "none",
-      color: "#fff",
-      borderRadius: "14px",
-      padding: "6px 14px",
-      fontWeight: "700",
-    },
+   editButton: {
+  backgroundColor: "#8b5520",
+  border: "none",
+  color: "#fff",
+  borderRadius: "20px",
+  padding: "8px 18px",
+  fontWeight: "700",
+  fontSize: "14px",
+  boxShadow: "0 6px 15px rgba(139, 85, 32, 0.25)",
+  transition: "0.3s",
+},
     deleteButton: {
-      backgroundColor: "#f3e4d0",
-      border: "none",
-      color: "#3b2a1d",
-      borderRadius: "14px",
-      padding: "6px 14px",
-      fontWeight: "700",
-    },
+  backgroundColor: "#fff",
+  border: "2px solid #8b5520",
+  color: "#8b5520",
+  borderRadius: "20px",
+  padding: "8px 18px",
+  fontWeight: "700",
+  fontSize: "14px",
+  transition: "0.3s",
+},
     emptyText: {
       color: "#5a4634",
       fontWeight: "600",
@@ -355,21 +360,23 @@ export default function AttractionDetails() {
 
                         {user && user.name === r.name && (
                           <div className="d-flex justify-content-end gap-2">
-                            <Button
-                              size="sm"
-                              style={styles.editButton}
-                              onClick={() => handleEdit(r)}
-                            >
-                              Edit
-                            </Button>
+                            <div className="d-flex justify-content-end gap-2">
+  <Button
+    size="sm"
+    style={styles.editButton}
+    onClick={() => handleEdit(r)}
+  >
+     Edit
+  </Button>
 
-                            <Button
-                              size="sm"
-                              style={styles.deleteButton}
-                              onClick={() => deleteReview(r._id)}
-                            >
-                              Delete
-                            </Button>
+  <Button
+    size="sm"
+    style={styles.deleteButton}
+    onClick={() => deleteReview(r._id)}
+  >
+     Delete
+  </Button>
+</div>
                           </div>
                         )}
                       </CardBody>
