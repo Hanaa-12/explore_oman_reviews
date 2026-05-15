@@ -11,7 +11,7 @@ export const registerUser = createAsyncThunk(
 export const login = createAsyncThunk(
   "users/login",
   async (data) => {
-    const res = await axios.post("https://explore-oman-reviews-ley9.onrender.com/api/users/login", data);
+    const res = await axios.post("https://explore-oman-reviews-ley9.onrender.com/login", data);
     return res.data;
   }
 );
